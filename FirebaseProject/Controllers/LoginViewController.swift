@@ -31,7 +31,10 @@ class LoginViewController: UIViewController {
                 self?.performSegue(withIdentifier: (self?.segueIdentifier)!, sender: nil)
             }
         }
+        
+        setupToHideKeyboardOnTapOnView()
     }
+    
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -113,3 +116,20 @@ class LoginViewController: UIViewController {
     }
 }
 
+extension UIViewController
+{
+    func setupToHideKeyboardOnTapOnView()
+    {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(UIViewController.dismissKeyboard))
+
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissKeyboard()
+    {
+        view.endEditing(true)
+    }
+}
